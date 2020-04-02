@@ -18,3 +18,15 @@ $proc.WaitForExit()
 (New-Object System.Net.WebClient).DownloadFile("https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.EXE", "C:\Users\$env:UserName\Downloads\temp\vcredist_2005_x64.exe")
 $proc = Start-Process "vcredist_2005_x64.exe" -Wait -ArgumentList "/Q" -PassThru
 $proc.WaitForExit()
+
+Write-Host "Downloading Visual C++ Redistributable 2008"
+
+(New-Object System.Net.WebClient).DownloadFile("https://download.microsoft.com/download/1/1/1/1116b75a-9ec3-481a-a3c8-1777b5381140/vcredist_x86.exe", "C:\Users\$env:UserName\Downloads\temp\vcredist_2008_x86.exe")
+
+$proc = Start-Process "vcredist_2008_x86.exe" -Wait -ArgumentList "/Q" -PassThru
+$proc.WaitForExit()
+
+(New-Object System.Net.WebClient).DownloadFile("https://download.microsoft.com/download/d/2/4/d242c3fb-da5a-4542-ad66-f9661d0a8d19/vcredist_x64.exe", "C:\Users\$env:UserName\Downloads\temp\vcredist_2008_x64.exe")
+
+$proc = Start-Process "vcredist_2008_x64.exe" -Wait -ArgumentList "/Q" -PassThru
+$proc.WaitForExit()
