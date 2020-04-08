@@ -1,3 +1,6 @@
+adb devices
+TIMEOUT 15
+adb devices
 adb shell pm uninstall -k --user 0 com.android.browser
 adb shell pm uninstall -k --user 0 com.miui.analytics
 adb shell pm uninstall -k --user 0 com.facebook.appmanager
