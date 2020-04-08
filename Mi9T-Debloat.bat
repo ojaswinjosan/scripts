@@ -16,6 +16,7 @@ adb shell pm uninstall -k --user 0 com.xiaomi.payment
 adb shell pm uninstall -k --user 0 com.mipay.wallet.id
 adb shell pm uninstall -k --user 0 com.mipay.wallet.in
 adb shell pm uninstall -k --user 0 com.miui.player
+adb shell pm uninstall -k --user 0 com.miui.notes
 adb shell pm uninstall -k --user 0 com.xiaomi.midrop
 adb shell pm uninstall -k --user 0 com.google.android.youtube
 adb shell pm uninstall -k --user 0 com.mi.android.globalFileexplorer
