@@ -66,3 +66,15 @@ $proc.WaitForExit()
 
 $proc = Start-Process "vcredist_2013_x64.exe" -Wait -ArgumentList "/norestart /Q" -PassThru
 $proc.WaitForExit()
+
+Write-Host "Downloading Visual C++ Redistributable 2015"
+
+(New-Object System.Net.WebClient).DownloadFile("https://download.microsoft.com/download/6/D/F/6DF3FF94-F7F9-4F0B-838C-A328D1A7D0EE/vc_redist.x86.exe", "C:\Users\$env:UserName\Downloads\temp\vcredist_2015_x86.exe")
+
+$proc = Start-Process "vcredist_2015_x86.exe" -Wait -ArgumentList "/norestart /Q" -PassThru
+$proc.WaitForExit()
+
+(New-Object System.Net.WebClient).DownloadFile("https://download.microsoft.com/download/6/D/F/6DF3FF94-F7F9-4F0B-838C-A328D1A7D0EE/vc_redist.x64.exe", "C:\Users\$env:UserName\Downloads\temp\vcredist_2015_x64.exe")
+
+$proc = Start-Process "vcredist_2015_x64.exe" -Wait -ArgumentList "/norestart /Q" -PassThru
+$proc.WaitForExit()
