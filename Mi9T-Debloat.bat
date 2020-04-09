@@ -13,6 +13,7 @@ adb shell pm uninstall -k --user 0 com.xiaomi.mipicks
 adb shell pm uninstall -k --user 0 com.google.android.googlequicksearchbox
 adb shell pm uninstall -k --user 0 com.google.ar.lens
 adb shell pm uninstall -k --user 0 com.xiaomi.payment
+adb shell pm uninstall -k --user 0 com.android.calendar
 adb shell pm uninstall -k --user 0 com.mipay.wallet.id
 adb shell pm uninstall -k --user 0 com.mipay.wallet.in
 adb shell pm uninstall -k --user 0 com.miui.player
