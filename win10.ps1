@@ -90,3 +90,7 @@ $proc.WaitForExit()
 
 $proc = Start-Process "vcredist_2017_x64.exe" -Wait -ArgumentList "/norestart /Q" -PassThru
 $proc.WaitForExit()
+
+# .NET Framework 3.5
+cmd /c DISM /online /enable-feature /featurename:NetFX3 /All /Source:%setupdrv%:\sources\sxs /LimitAccess
+
