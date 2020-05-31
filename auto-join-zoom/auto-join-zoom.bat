@@ -1,6 +1,6 @@
 REM Browsers Tested: chrome, firefox, opera, edge
 REM Make sure there's no space after the = sign
-SET BROWSER=
+SET BROWSER=edge
 SET URL=
 
 TIMEOUT /t 2 /nobreak
