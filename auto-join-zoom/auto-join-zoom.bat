@@ -2,6 +2,7 @@ REM Browsers Tested: chrome, firefox, opera, edge
 REM Make sure there's no space after the = sign
 SET BROWSER=edge
 SET URL=
+SET AHK-LOCATION="C:\Program Files\AutoHotkey\AutoHotkey.exe"
 
 TIMEOUT /t 2 /nobreak
 ECHO Starting %BROWSER%
@@ -9,4 +10,4 @@ IF "%BROWSER%"=="edge" (START microsoft-edge:%URL%) ELSE (START %BROWSER% /new-w
 TIMEOUT /t 2 /nobreak
 echo Starting Zoom
 TIMEOUT /t 8 /nobreak
-start %~dp0/start-zoom.ahk
+%AHK-LOCATION% "%~dp0\start-zoom.ahk"
