@@ -87,3 +87,6 @@ DISM /Online /Enable-Feature /FeatureName:Microsoft-Hyper-V /All /NoRestart
 
 # Windows Sandbox
 DISM /Online /Enable-Feature /FeatureName:Containers-DisposableClientVM /All /NoRestart
+
+# WSL
+DISM /Online /Enable-Feature /FeatureName:Microsoft-Windows-Subsystem-Linux /All /NoRestart
