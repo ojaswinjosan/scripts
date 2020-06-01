@@ -84,3 +84,6 @@ DISM /Online /Enable-Feature /FeatureName:NetFX3 /All
 
 # Hyper-V
 DISM /Online /Enable-Feature /FeatureName:Microsoft-Hyper-V /All /NoRestart
+
+# Windows Sandbox
+DISM /Online /Enable-Feature /FeatureName:Containers-DisposableClientVM /All /NoRestart
