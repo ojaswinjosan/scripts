@@ -81,3 +81,6 @@ $proc.WaitForExit()
 
 # .NET Framework 3.5
 DISM /Online /Enable-Feature /FeatureName:NetFX3 /All
+
+# Hyper-V
+DISM /Online /Enable-Feature /FeatureName:Microsoft-Hyper-V /All /NoRestart
