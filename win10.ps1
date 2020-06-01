@@ -90,3 +90,6 @@ DISM /Online /Enable-Feature /FeatureName:Containers-DisposableClientVM /All /No
 
 # WSL
 DISM /Online /Enable-Feature /FeatureName:Microsoft-Windows-Subsystem-Linux /All /NoRestart
+
+# Disable Bluetooth Absolute Volume
+Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\Bluetooth\Audio\AVRCP\CT" -Name "DisableAbsoluteVolume" -Type DWord -Value 1
