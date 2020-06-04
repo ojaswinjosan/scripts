@@ -21,7 +21,6 @@ adb shell pm uninstall -k --user 0 com.miui.cloudservice
 adb shell pm uninstall -k --user 0 com.miui.cloudservice.sysbase
 adb shell pm uninstall -k --user 0 com.miui.compass
 adb shell pm uninstall -k --user 0 com.miui.fm
-adb shell pm uninstall -k --user 0 com.miui.huanji
 adb shell pm uninstall -k --user 0 com.miui.micloudsync
 adb shell pm uninstall -k --user 0 com.miui.miservice
 adb shell pm uninstall -k --user 0 com.miui.notes
