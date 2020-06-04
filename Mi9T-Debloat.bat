@@ -34,5 +34,6 @@ adb shell pm uninstall -k --user 0 com.xiaomi.midrop
 adb shell pm uninstall -k --user 0 com.xiaomi.mipicks
 adb shell pm uninstall -k --user 0 com.xiaomi.miplay_client
 adb shell pm uninstall -k --user 0 com.xiaomi.payment
+adb shell pm uninstall -k --user 0 com.xiaomi.scanner
 PAUSE
 echo "All done!"
