@@ -93,3 +93,6 @@ DISM /Online /Enable-Feature /FeatureName:Microsoft-Windows-Subsystem-Linux /All
 
 # Disable Bluetooth Absolute Volume
 Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\Bluetooth\Audio\AVRCP\CT" -Name "DisableAbsoluteVolume" -Type DWord -Value 1
+
+# Enable Clipboard History
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1
