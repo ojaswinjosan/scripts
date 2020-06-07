@@ -102,3 +102,6 @@ powercfg /X monitor-timeout-ac 0
 powercfg /X monitor-timeout-dc 15
 powercfg /X standby-timeout-ac 0
 powercfg /X standby-timeout-dc 30
+
+# Open Explorer to 'This PC' by default
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
