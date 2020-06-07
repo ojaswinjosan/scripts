@@ -96,3 +96,9 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\Bluetooth\Audio\AVRCP
 
 # Enable Clipboard History
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1
+
+# Display & sleep timeouts
+powercfg /X monitor-timeout-ac 0
+powercfg /X monitor-timeout-dc 15
+powercfg /X standby-timeout-ac 0
+powercfg /X standby-timeout-dc 30
