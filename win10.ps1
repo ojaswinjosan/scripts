@@ -80,34 +80,44 @@ $proc = Start-Process "vcredist_2017_x64.exe" -Wait -ArgumentList "/norestart /Q
 $proc.WaitForExit()
 
 # .NET Framework 3.5
+Write-Host "Enabling .NET Framework 3.5"
 DISM /Online /Enable-Feature /FeatureName:NetFX3 /All
 
 # Hyper-V
+Write-Host "Enabling Hyper-V"
 DISM /Online /Enable-Feature /FeatureName:Microsoft-Hyper-V /All /NoRestart
 
 # Windows Sandbox
+Write-Host "Enabling Windows Sandbox"
 DISM /Online /Enable-Feature /FeatureName:Containers-DisposableClientVM /All /NoRestart
 
 # WSL
+Write-Host "Enabling WSL"
 DISM /Online /Enable-Feature /FeatureName:Microsoft-Windows-Subsystem-Linux /All /NoRestart
 
 # Disable Bluetooth Absolute Volume
+Write-Host "Disabling Bluetooth Absolute Volume"
 Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\Bluetooth\Audio\AVRCP\CT" -Name "DisableAbsoluteVolume" -Type DWord -Value 1
 
 # Enable Clipboard History
+Write-Host "Enabling Clipboard History"
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1
 
 # Display & sleep timeouts
+Write-Host "Changing display & sleep timeouts"
 powercfg /X monitor-timeout-ac 0
 powercfg /X monitor-timeout-dc 15
 powercfg /X standby-timeout-ac 0
 powercfg /X standby-timeout-dc 30
 
 # Open Explorer to 'This PC' by default
+Write-Host "Setting 'This PC' as the default for Explorer"
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1
 
 # Show file extensions
+Write-Host "Enabling file extensions"
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Type DWord -Value 0
 
 # Show full path
+Write-Host "Enabling full path in Explorer title bar"
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState" -Name "FullPath" -Type DWord -Value 1
