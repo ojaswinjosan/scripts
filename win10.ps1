@@ -127,3 +127,9 @@ Write-Host "Downloading AutoHotKey"
 curl -o ahk.exe https://www.autohotkey.com/download/ahk-install.exe
 $proc = Start-Process "ahk.exe" -Wait -ArgumentList "/S" -PassThru
 $proc.WaitForExit()
+
+# Windows Terminal
+Write-Host "Downloading Windows Terminal"
+(New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/winterminal-install.ahk", "C:\Users\$env:UserName\Downloads\temp\winterminal-install.ahk")
+Start microsoft-edge:
+Start "C:\Program Files\AutoHotkey\AutoHotkey.exe" "C:\Users\$env:UserName\Downloads\temp\winterminal-install.ahk"
