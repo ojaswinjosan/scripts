@@ -121,3 +121,9 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 # Show full path
 Write-Host "Enabling full path in Explorer title bar"
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState" -Name "FullPath" -Type DWord -Value 1
+
+# AutoHotKey
+Write-Host "Downloading AutoHotKey"
+curl -o ahk.exe https://www.autohotkey.com/download/ahk-install.exe
+$proc = Start-Process "ahk.exe" -Wait -ArgumentList "/S" -PassThru
+$proc.WaitForExit()
