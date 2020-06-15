@@ -143,3 +143,8 @@ Start-Sleep -Seconds 30
 (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/ojaswinjosan/windows-terminal-config/master/settings.json", "C:\Users\oj\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
 (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/ojaswinjosan/windows-terminal-config/master/Microsoft.PowerShell_profile.ps1", "C:\Users\oj\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\Microsoft.PowerShell_profile.ps1")
 (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/ojaswinjosan/windows-terminal-config/master/terminal-bg.jpg", "C:\Users\oj\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\terminal-bg.jpg")
+
+# Windows Terminal in context menu
+Write-Host "Adding Windows Terminal to the Context Menu"
+New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal" -Value "Open Windows Terminal here" -Force
+New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal\command" -Value "C:\Users\oj\AppData\Local\Microsoft\WindowsApps\Microsoft.WindowsTerminal_8wekyb3d8bbwe\wt.exe -d ." -Force
