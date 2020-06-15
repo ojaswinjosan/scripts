@@ -131,7 +131,6 @@ $proc.WaitForExit()
 # Windows Terminal
 Write-Host "Downloading Windows Terminal"
 (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/winterminal-install.ahk", "C:\Users\$env:UserName\Downloads\temp\winterminal-install.ahk")
-Start-Process microsoft-edge:
 Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "C:\Users\$env:UserName\Downloads\temp\winterminal-install.ahk"
 
 # Windows Terminal Config
