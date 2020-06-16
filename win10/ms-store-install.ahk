@@ -3,22 +3,15 @@
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
-if WinExist("Start")
+; Assuming the user is logged in to their Microsoft account.
+; The Store may show an extra prompt if not logged in.
+
+if WinExist("Microsoft Store")
 {
      WinActivate
 }
-else
-sleep, 5000
-Loop, 4
-{
-     send +{tab}
-     sleep, 1000
-}
-sleep, 3000
-send ms-windows-store://pdp/?ProductId=9n0dx20hk701
 sleep, 1000
-send `n
+WinMaximize
 sleep, 5000
 send `n
-sleep, 5000
 return
