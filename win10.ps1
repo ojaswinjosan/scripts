@@ -142,3 +142,9 @@ $py_filename = "python-"+$py_ver+"-amd64.exe"
 Write-Host "Downloading Python" $py_ver
 Invoke-WebRequest -o $py_filename $py_dl
 Start-Process $py_filename -Wait -ArgumentList "/quiet InstallLauncherAllUsers=0 PrependPath=1"
+
+# Python packages
+Write-Host "Downloading Python packages"
+python -m pip install --upgrade pip
+pip install bs4
+pip install lxml
