@@ -141,4 +141,4 @@ $py_filename = "python-"+$py_ver+"-amd64.exe"
 
 Write-Host "Downloading Python" $py_ver
 Invoke-WebRequest -o $py_filename $py_dl
-Start-Process $py_filename -Wait -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1"
+Start-Process $py_filename -Wait -ArgumentList "/quiet InstallLauncherAllUsers=0 PrependPath=1"
