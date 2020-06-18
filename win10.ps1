@@ -131,3 +131,14 @@ Invoke-WebRequest -o $terminal_config_path"terminal-bg.jpg" $temrinal_config_bg
 Write-Host "Adding Windows Terminal to the Context Menu"
 New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal" -Value "Open Windows Terminal here" -Force
 New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal\command" -Value "C:\Users\oj\AppData\Local\Microsoft\WindowsApps\Microsoft.WindowsTerminal_8wekyb3d8bbwe\wt.exe -d ." -Force
+
+# Python 
+$py_url = Invoke-WebRequest "https://www.python.org/downloads/"
+$py_text = $py_url.AllElements | Where-Object {$_.TagName -eq "a"} | Where-Object {$_.class -eq "button"}
+$py_ver = ($py_text[1].innerText).SubString(($py_text[1].innerText).Length - 5,5)
+$py_dl = "https://www.python.org/ftp/python/"+$py_ver+"/python-"+$py_ver+"-amd64.exe"
+$py_filename = "python-"+$py_ver+"-amd64.exe"
+
+Write-Host "Downloading Python" $py_ver
+Invoke-WebRequest -o $py_filename $py_dl
+Start-Process $py_filename -Wait -ArgumentList "/quiet InstallAllUsers=1 PrependPath=1"
