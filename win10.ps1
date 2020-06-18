@@ -148,3 +148,10 @@ Write-Host "Downloading Python packages"
 python -m pip install --upgrade pip
 pip install bs4
 pip install lxml
+
+# 7-Zip
+$7z_py_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-7zip.py"
+Invoke-WebRequest -o "dl-7zip.py" $7z_py_url
+python dl-7zip.py
+Set-Location "C:\Users\$env:UserName\Downloads\temp"
+Start-Process "7zip.exe" -Wait -ArgumentList "/S"
