@@ -168,3 +168,16 @@ Start-Process "npp.exe" -Wait -ArgumentList "/S"
 Write-Host "Downloading VS Code"
 Invoke-WebRequest -o "vscode.exe" "https://aka.ms/win32-x64-user-stable"
 Start-Process "vscode.exe" -Wait -ArgumentList "/VERYSILENT /mergetasks=`"addcontextmenufiles,addcontextmenufolders,addtopath,!runcode`""
+
+# VS Code Extensions
+Write-Host "Downloading VS Code Extensions"
+code --install-extension jolaleye.horizon-theme-vscode
+code --install-extension ms-vscode.powershell
+code --install-extension ms-python.python
+code --install-extension ritwickdey.liveserver
+code --install-extension ms-azuretools.vscode-docker
+code --install-extension redhat.vscode-yaml
+code --install-extension coenraads.bracket-pair-colorizer-2
+code --install-extension pkief.material-icon-theme
+code --install-extension pranaygp.vscode-css-peek
+code --install-extension kamikillerto.vscode-colorize
