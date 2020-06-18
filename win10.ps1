@@ -163,3 +163,8 @@ $npp_py_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win
 Invoke-WebRequest -o "dl-npp.py" $npp_py_url
 python dl-npp.py
 Start-Process "npp.exe" -Wait -ArgumentList "/S"
+
+# VS Code
+Write-Host "Downloading VS Code"
+Invoke-WebRequest -o "vscode.exe" "https://aka.ms/win32-x64-user-stable"
+Start-Process "vscode.exe" -Wait -ArgumentList "/VERYSILENT /mergetasks=`"addcontextmenufiles,addcontextmenufolders,addtopath,!runcode`""
