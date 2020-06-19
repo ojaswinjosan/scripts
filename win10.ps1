@@ -132,7 +132,7 @@ Write-Host "Adding Windows Terminal to the Context Menu"
 New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal" -Value "Open Windows Terminal here" -Force
 New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal\command" -Value "C:\Users\oj\AppData\Local\Microsoft\WindowsApps\Microsoft.WindowsTerminal_8wekyb3d8bbwe\wt.exe -d ." -Force
 
-# Python 
+# Python
 $py_url = Invoke-WebRequest "https://www.python.org/downloads/"
 $py_text = $py_url.AllElements | Where-Object {$_.TagName -eq "a"} | Where-Object {$_.class -eq "button"}
 $py_ver = ($py_text[1].innerText).SubString(($py_text[1].innerText).Length - 5,5)
@@ -202,3 +202,12 @@ Start-Process ms-windows-store://pdp/?ProductId=9nblggh4msv6
 Start-Sleep -Seconds 5
 Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "ms-store-install.ahk"
 Start-Sleep -Seconds 20
+
+# FFmpeg
+Write-Host "Downloading FFmpeg"
+$ffmpeg_url = "https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-latest-win64-static.zip"
+Invoke-WebRequest -o "ffmpeg.zip" $ffmpeg_url
+Expand-Archive -Path "ffmpeg.zip" -Force
+Copy-Item -Path "ffmpeg\ffmpeg*\" -Destination "C:\Program Files\ffmpeg\" -Force -Recurse
+$ffmpeg_path = ";C:\Program Files\ffmpeg\bin"
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path",[EnvironmentVariableTarget]::Machine) + $ffmpeg_path, [EnvironmentVariableTarget]::Machine)
