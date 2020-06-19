@@ -195,3 +195,10 @@ Start-Process ms-windows-store://pdp/?ProductId=9ncbcszsjrsb
 Start-Sleep -Seconds 5
 Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "ms-store-install.ahk"
 Start-Sleep -Seconds 20
+
+# Ubuntu WSL
+Write-Host "Downloading WSL Ubuntu"
+Start-Process ms-windows-store://pdp/?ProductId=9nblggh4msv6
+Start-Sleep -Seconds 5
+Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "ms-store-install.ahk"
+Start-Sleep -Seconds 20
