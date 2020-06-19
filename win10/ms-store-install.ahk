@@ -10,8 +10,13 @@ if WinExist("Microsoft Store")
 {
      WinActivate
 }
-sleep, 1000
+sleep, 2000
 WinMaximize
-sleep, 5000
+sleep, 10000
 send `n
+sleep, 3000
+if WinExist("Administrator")
+{
+     WinActivate
+}
 return
