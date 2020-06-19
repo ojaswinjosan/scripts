@@ -181,3 +181,10 @@ code --install-extension coenraads.bracket-pair-colorizer-2
 code --install-extension pkief.material-icon-theme
 code --install-extension pranaygp.vscode-css-peek
 code --install-extension kamikillerto.vscode-colorize
+
+# VLC
+Write-Host "Downloading VLC"
+$vlc_dl = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-vlc.py"
+Invoke-WebRequest -o "dl-vlc.py" $vlc_dl
+python "dl-vlc.py"
+Start-Process "vlc-x64.exe" -Wait -ArgumentList "/S"
