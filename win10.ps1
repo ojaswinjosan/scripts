@@ -98,13 +98,13 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 
 # AutoHotKey
 Write-Host "Downloading AutoHotKey"
-Invoke-WebRequest -o ahk.exe https://www.autohotkey.com/download/ahk-install.exe
+Invoke-WebRequest -o ahk.exe "https://www.autohotkey.com/download/ahk-install.exe"
 Start-Process "ahk.exe" -Wait -ArgumentList "/S"
 
 # Windows Terminal
 Write-Host "Downloading Windows Terminal"
-$terminal_dl = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/ms-store-install.ahk"
-Invoke-WebRequest -o "ms-store-install.ahk" $terminal_dl
+$ms_store_dl = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/ms-store-install.ahk"
+Invoke-WebRequest -o "ms-store-install.ahk" $ms_store_dl
 Start-Process ms-windows-store://pdp/?ProductId=9n0dx20hk701
 Start-Sleep -Seconds 5
 Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "ms-store-install.ahk"
@@ -118,14 +118,14 @@ Install-Module oh-my-posh -Force
 Start-Sleep -Seconds 15
 
 $terminal_config_path = "C:\Users\oj\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\"
-$terminal_config_url = "https://raw.githubusercontent.com/ojaswinjosan/windows-terminal-config/master/"
-$terminal_config_settings = $terminal_config_url+"settings.json"
-$terminal_config_psprofile = $terminal_config_url+"Microsoft.PowerShell_profile.ps1"
-$temrinal_config_bg = $terminal_config_url+"terminal-bg.jpg"
+$terminal_config_dl = "https://raw.githubusercontent.com/ojaswinjosan/windows-terminal-config/master/"
+$terminal_settings_dl = $terminal_config_dl+"settings.json"
+$terminal_psprofile_dl = $terminal_config_dl+"Microsoft.PowerShell_profile.ps1"
+$temrinal_bg_dl = $terminal_config_dl+"terminal-bg.jpg"
 
-Invoke-WebRequest -o $terminal_config_path"settings.json" $terminal_config_settings
-Invoke-WebRequest -o $terminal_config_path"Microsoft.PowerShell_profile.ps1" $terminal_config_psprofile
-Invoke-WebRequest -o $terminal_config_path"terminal-bg.jpg" $temrinal_config_bg
+Invoke-WebRequest -o $terminal_config_path"settings.json" $terminal_settings_dl
+Invoke-WebRequest -o $terminal_config_path"Microsoft.PowerShell_profile.ps1" $terminal_psprofile_dl
+Invoke-WebRequest -o $terminal_config_path"terminal-bg.jpg" $temrinal_bg_dl
 
 # Windows Terminal in context menu
 Write-Host "Adding Windows Terminal to the Context Menu"
@@ -151,17 +151,17 @@ pip install lxml
 pip install requests
 
 # 7-Zip
-$7z_py_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-7zip.py"
-Invoke-WebRequest -o "dl-7zip.py" $7z_py_url
-python dl-7zip.py
-Set-Location "C:\Users\$env:UserName\Downloads\temp"
+Write-Host "Downloading 7-Zip"
+$7z_dl = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-7zip.py"
+Invoke-WebRequest -o "dl-7zip.py" $7z_dl
+python "dl-7zip.py"
 Start-Process "7zip.exe" -Wait -ArgumentList "/S"
 
 # Notepad++
 Write-Host "Downloading Notepad++"
-$npp_py_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-npp.py"
-Invoke-WebRequest -o "dl-npp.py" $npp_py_url
-python dl-npp.py
+$npp_dl = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-npp.py"
+Invoke-WebRequest -o "dl-npp.py" $npp_dl
+python "dl-npp.py"
 Start-Process "npp.exe" -Wait -ArgumentList "/S"
 
 # VS Code
