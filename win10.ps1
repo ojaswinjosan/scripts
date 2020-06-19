@@ -188,3 +188,10 @@ $vlc_dl = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/d
 Invoke-WebRequest -o "dl-vlc.py" $vlc_dl
 python "dl-vlc.py"
 Start-Process "vlc-x64.exe" -Wait -ArgumentList "/S"
+
+# Spotify
+Write-Host "Downloading Spotify"
+Start-Process ms-windows-store://pdp/?ProductId=9ncbcszsjrsb
+Start-Sleep -Seconds 5
+Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "ms-store-install.ahk"
+Start-Sleep -Seconds 20
