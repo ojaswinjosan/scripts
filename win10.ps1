@@ -117,7 +117,7 @@ Install-Module posh-git -Force
 Install-Module oh-my-posh -Force
 Start-Sleep -Seconds 15
 
-$terminal_config_path = "C:\Users\oj\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\"
+$terminal_config_path = "C:\Users\"+$env:UserName+"\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\"
 $terminal_config_dl = "https://raw.githubusercontent.com/ojaswinjosan/windows-terminal-config/master/"
 $terminal_settings_dl = $terminal_config_dl+"settings.json"
 $terminal_psprofile_dl = $terminal_config_dl+"Microsoft.PowerShell_profile.ps1"
@@ -130,12 +130,12 @@ Invoke-WebRequest -o $terminal_config_path"terminal-bg.jpg" $temrinal_bg_dl
 # Windows Terminal in context menu
 Write-Host "Adding Windows Terminal to the Context Menu"
 New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal" -Value "Open Windows Terminal here" -Force
-New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal\command" -Value "C:\Users\oj\AppData\Local\Microsoft\WindowsApps\Microsoft.WindowsTerminal_8wekyb3d8bbwe\wt.exe -d ." -Force
+New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal\command" -Value "C:\Users\$($env:UserName)\AppData\Local\Microsoft\WindowsApps\Microsoft.WindowsTerminal_8wekyb3d8bbwe\wt.exe -d ." -Force
 
 # Python
 $py_url = Invoke-WebRequest "https://www.python.org/downloads/"
 $py_text = $py_url.AllElements | Where-Object {$_.TagName -eq "a"} | Where-Object {$_.class -eq "button"}
-$py_ver = ($py_text[1].innerText).SubString(($py_text[1].innerText).Length - 5,5)
+$py_ver = ($py_text[1].innerText).SubString(($py_text[1].innerText).Length - 5)
 $py_dl = "https://www.python.org/ftp/python/"+$py_ver+"/python-"+$py_ver+"-amd64.exe"
 $py_filename = "python-"+$py_ver+"-amd64.exe"
 
@@ -211,3 +211,10 @@ Expand-Archive -Path "ffmpeg.zip" -Force
 Copy-Item -Path "ffmpeg\ffmpeg*\" -Destination "C:\Program Files\ffmpeg\" -Force -Recurse
 $ffmpeg_path = ";C:\Program Files\ffmpeg\bin"
 [Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path",[EnvironmentVariableTarget]::Machine) + $ffmpeg_path, [EnvironmentVariableTarget]::Machine)
+
+# OBS
+Write-Host "Downloading OBS Studio"
+$obs_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-obs.py"
+Invoke-WebRequest -o "dl-obs.py" $obs_url
+python "dl-obs.py"
+Start-Process "obs.exe" -Wait -ArgumentList "/S"
