@@ -218,3 +218,10 @@ $obs_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/
 Invoke-WebRequest -o "dl-obs.py" $obs_url
 python "dl-obs.py"
 Start-Process "obs.exe" -Wait -ArgumentList "/S"
+
+# TeamViewer
+Write-Host "Downloading TeamViewer"
+$tv_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-tviewer.py"
+Invoke-WebRequest -o "dl-tviewer.py" $tv_url
+python "dl-tviewer.py"
+Start-Process "teamviewer.exe" -Wait -ArgumentList "/S"
