@@ -225,3 +225,12 @@ $tv_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/d
 Invoke-WebRequest -o "dl-tviewer.py" $tv_url
 python "dl-tviewer.py"
 Start-Process "teamviewer.exe" -Wait -ArgumentList "/S"
+
+# Git
+Write-Host "Downloading Git"
+$git_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-git.py"
+Invoke-WebRequest -o "dl-git.py" $git_url
+python "dl-git.py"
+Start-Process "git.exe" -Wait -ArgumentList "/VERYSILENT /NORESTART"
+New-Item "C:\Users\$($env:UserName)\.gitconfig" -Force | Out-Null
+Set-Content "C:\Users\$($env:UserName)\.gitconfig" "[core] `n`teditor = nano"
