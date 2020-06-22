@@ -61,10 +61,6 @@ DISM /Online /Enable-Feature /FeatureName:NetFX3 /All
 Write-Host "Enabling Hyper-V"
 DISM /Online /Enable-Feature /FeatureName:Microsoft-Hyper-V /All /NoRestart
 
-# Windows Sandbox
-Write-Host "Enabling Windows Sandbox"
-DISM /Online /Enable-Feature /FeatureName:Containers-DisposableClientVM /All /NoRestart
-
 # WSL
 Write-Host "Enabling WSL"
 DISM /Online /Enable-Feature /FeatureName:Microsoft-Windows-Subsystem-Linux /All /NoRestart
