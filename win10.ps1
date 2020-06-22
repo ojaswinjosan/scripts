@@ -236,9 +236,16 @@ New-Item "C:\Users\$($env:UserName)\.gitconfig" -Force | Out-Null
 Set-Content "C:\Users\$($env:UserName)\.gitconfig" "[core] `n`teditor = nano"
 
 # DirectX
+Write-Host "Downloading DirectX"
 $dx_url = "http://download.microsoft.com/download/8/4/A/84A35BF1-DAFE-4AE8-82AF-AD2AE20B6B14/directx_Jun2010_redist.exe"
 Invoke-WebRequest -o "directx.exe" $dx_url
 New-Item -Path . -Name "directx" -ItemType "Directory" -Force
 $dx_path = "C:\Users\$($env:UserName)\Downloads\temp\directx"
 Start-Process "directx.exe" -Wait -ArgumentList "/Q /C /T:$dx_path"
 Start-Process ".\directx\DXSETUP.exe" -Wait -ArgumentList "/silent"
+
+# Google Chrome
+Write-Host "Downloading Google Chrome"
+$chrome_url = "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi"
+Invoke-WebRequest -o "chrome.msi" $chrome_url
+Start-Process "chrome.msi" -Wait -ArgumentList "/qn"
