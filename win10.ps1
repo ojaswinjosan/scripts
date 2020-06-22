@@ -231,6 +231,14 @@ Start-Process "git.exe" -Wait -ArgumentList "/VERYSILENT /NORESTART"
 New-Item "C:\Users\$($env:UserName)\.gitconfig" -Force | Out-Null
 Set-Content "C:\Users\$($env:UserName)\.gitconfig" "[core] `n`teditor = nano"
 
+# endall Alias
+Write-Host "Adding endall Alias"
+New-Item -Path "C:\Users\$($env:UserName)\Documents\" -Name "WindowsPowerShell" -ItemType "Directory" -Force | Out-Null
+Set-Location "C:\Users\$($env:UserName)\Documents\WindowsPowerShell"
+New-Item -Path . -Name "Microsoft.PowerShell_profile.ps1" -ItemType "File" -Force | Out-Null
+$func = "Get-Process Explorer| Stop-Process ; Get-Process | Where-Object {`$`_.MainWindowTitle -ne """" }| Stop-Process"
+Set-Content "Microsoft.PowerShell_profile.ps1" "function Close-Active-Windows {`n`t $($func) `n} `n`nSet-Alias endall Close-Active-Windows"
+
 # DirectX
 Write-Host "Downloading DirectX"
 $dx_url = "http://download.microsoft.com/download/8/4/A/84A35BF1-DAFE-4AE8-82AF-AD2AE20B6B14/directx_Jun2010_redist.exe"
@@ -245,3 +253,16 @@ Write-Host "Downloading Google Chrome"
 $chrome_url = "https://dl.google.com/tag/s/dl/chrome/install/googlechromestandaloneenterprise64.msi"
 Invoke-WebRequest -o "chrome.msi" $chrome_url
 Start-Process "chrome.msi" -Wait -ArgumentList "/qn"
+
+# WSL 2
+Write-Host "Updating to WSL 2"
+DISM /Online /Enable-Feature /FeatureName:VirtualMachinePlatform /All /NoRestart
+$wsl2_url = "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
+New-Item "C:\Users\$($env:UserName)\Downloads\temp\wsl2.ps1" -Force | Out-Null
+Set-Content "C:\Users\$($env:UserName)\Downloads\temp\wsl2.ps1" "wsl --set-default-version 2"
+Invoke-WebRequest -o "wsl_update_x64.msi" $wsl2_url
+Start-Process "wsl_update_x64.msi" -Wait -ArgumentList "/quiet /passive /norestart" -PassThru
+New-ItemProperty -Path HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce -Name ScriptV2 -Propertytype String -Value "Powershell C:\Users\$env:UserName\Downloads\temp\win10p2.ps1"
+Write-Host "The system will restart in 60 seconds"
+Start-Sleep -Seconds 60
+Restart-Computer
