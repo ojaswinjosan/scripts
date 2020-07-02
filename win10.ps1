@@ -183,6 +183,15 @@ code --install-extension coenraads.bracket-pair-colorizer-2 | Out-Null
 code --install-extension pkief.material-icon-theme | Out-Null
 code --install-extension pranaygp.vscode-css-peek | Out-Null
 code --install-extension kamikillerto.vscode-colorize | Out-Null
+code --install-extension cweijan.vscode-autohotkey-plus | Out-Null
+code --install-extension ms-vscode-remote.remote-wsl | Out-Null
+code --install-extension eamodio.gitlens | Out-Null
+code --install-extension donjayamanne.githistory | Out-Null
+code --install-extension chrmarti.regex | Out-Null
+code --install-extension xabikos.JavaScriptSnippets | Out-Null
+code --install-extension dbaeumer.vscode-eslint | Out-Null
+code --install-extension ms-vscode-remote.remote-containers | Out-Null
+code --install-extension James-Yu.latex-workshop | Out-Null
 
 # FFmpeg
 Write-Host "`nInstalling FFmpeg"
