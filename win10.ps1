@@ -165,7 +165,7 @@ New-Item -Path . -Name "directx" -ItemType "Directory" -Force | Out-Null
 Start-Process "directx.exe" -Wait -ArgumentList "/Q /C /T:$dx_path"
 Start-Process ".\directx\DXSETUP.exe" -Wait -ArgumentList "/silent"
 
-# VS Code
+### VS Code ###
 Write-Host "`nInstalling VS Code"
 Invoke-WebRequest -o "vscode.exe" "https://aka.ms/win32-x64-user-stable"
 Start-Process "vscode.exe" -Wait -ArgumentList "/VERYSILENT /mergetasks=`"addcontextmenufiles,addcontextmenufolders,addtopath,!runcode`""
@@ -209,7 +209,7 @@ Start-Sleep -Seconds 15
 Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "ms-store-install.ahk" -Wait
 Start-Sleep -Seconds 15
 
-# Windows Terminal Config
+### Windows Terminal Config ###
 Write-Host "`nApplying Windows Terminal config"
 $terminal_config_url = "https://raw.githubusercontent.com/ojaswinjosan/windows-terminal-config/master/"
 $terminal_config_path = "C:\Users\"+$env:UserName+"\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\"
@@ -265,17 +265,17 @@ taskkill /F /IM explorer.exe | Out-Null
 Start-Process explorer
 Start-Sleep -Seconds 10
 
-# WSL 2
-Write-Host "`nUpdating to WSL 2"
+# Download WSL 2 kernel update
 $wsl2_url = "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
-Invoke-WebRequest -o "wsl_update_x64.msi" $wsl2_url
-Start-Process "wsl_update_x64.msi" -Wait -ArgumentList "/quiet /passive /norestart"
-New-Item "C:\Users\$($env:UserName)\Downloads\wsl2.ps1" -Force | Out-Null
-New-Item "C:\Users\$($env:UserName)\Downloads\wsl2.bat" -Force | Out-Null
-Add-Content "C:\Users\$($env:UserName)\Downloads\wsl2.bat" "powershell.exe -ExecutionPolicy Bypass -File C:\Users\$($env:UserName)\Downloads\wsl2.ps1"
-Add-Content "C:\Users\$($env:UserName)\Downloads\wsl2.ps1" "Set-Location C:\Users\$($env:UserName)\Downloads\`nwsl --set-default-version 2`nRemove-Item -Path C:\Users\$($env:UserName)\Downloads\temp -Recurse -Force "
-Add-Content "C:\Users\$($env:UserName)\Downloads\wsl2.ps1" "Remove-Item -Path wsl2.bat`nRemove-Item -Path win10.ps1`nRemove-Item -Path `$MyInvocation.MyCommand.Source"
-New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name ScriptV2 -Propertytype String -Value "C:\Users\$env:UserName\Downloads\wsl2.bat" | Out-Null
+Invoke-WebRequest -o "C:\Users\$($env:UserName)\Downloads\wsl_update_x64.msi" $wsl2_url
+
+# Remove files after reboot
+New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" -Force | Out-Null
+New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.bat" -Force | Out-Null
+Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.bat" "powershell.exe -ExecutionPolicy Bypass -File C:\Users\$($env:UserName)\Downloads\removefiles.ps1"
+Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Set-Location C:\Users\$($env:UserName)\Downloads\`nRemove-Item -Path temp -Recurse -Force"
+Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Remove-Item -Path removefiles.bat`nRemove-Item -Path win10.ps1`nRemove-Item -Path `$MyInvocation.MyCommand.Source"
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name ScriptV2 -Propertytype String -Value "C:\Users\$env:UserName\Downloads\removefiles.bat" | Out-Null
 
 # Bloatware
 Write-Host "`nRemoving Bloatware"
@@ -293,7 +293,7 @@ $endall_func = "Get-Process Explorer| Stop-Process ; Get-Process | Where-Object 
 New-Item -Path "C:\Users\$($env:UserName)\Documents\" -Name "WindowsPowerShell" -ItemType "Directory" -Force | Out-Null
 Set-Location "C:\Users\$($env:UserName)\Documents\WindowsPowerShell"
 New-Item -Path . -Name "Microsoft.PowerShell_profile.ps1" -ItemType "File" -Force | Out-Null
-Add-Content "Microsoft.PowerShell_profile.ps1" "function Close-Active-Windows {`n`t $($endall_func) `n} `n`nSet-Alias endall Close-Active-Windows"
+Add-Content "Microsoft.PowerShell_profile.ps1" "function Close-All {`n`t $($endall_func) `n} `n`nSet-Alias endall Close-All"
 
 # Display and Sleep timeouts
 Write-Host "`nTweaking Display and sleep timeouts"
