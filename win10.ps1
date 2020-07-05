@@ -56,7 +56,7 @@ Start-Process ms-windows-store://pdp/?ProductId=9n0dx20hk701
 Start-Sleep -Seconds 5
 Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "ms-store-install.ahk" -Wait
 
-# VCRedist
+### VCRedist ###
 Write-Host "`nInstalling all Visual C++ Redistributables"
 $vc2005x86 = "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.EXE"
 $vc2005x64 = "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.EXE"
@@ -101,14 +101,14 @@ Start-Process "vcredist_2015_2019_x64.exe" -Wait -ArgumentList "/norestart /Q"
 Write-Host "`nInstalling 7-Zip"
 $7z_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-7zip.py"
 Invoke-WebRequest -o "dl-7zip.py" $7z_url
-Start-Process python "dl-7zip.py" -Wait
+python "dl-7zip.py" $temp_location -Wait
 Start-Process "7zip.exe" -Wait -ArgumentList "/S"
 
 # Notepad++
 Write-Host "`nInstalling Notepad++"
 $npp_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-npp.py"
 Invoke-WebRequest -o "dl-npp.py" $npp_url
-Start-Process python "dl-npp.py" -Wait
+python "dl-npp.py" $temp_location -Wait
 Start-Process "npp.exe" -Wait -ArgumentList "/S"
 
 # Chrome
@@ -121,21 +121,21 @@ Start-Process "chrome.msi" -Wait -ArgumentList "/qn"
 Write-Host "`nInstalling OBS Studio"
 $obs_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-obs.py"
 Invoke-WebRequest -o "dl-obs.py" $obs_url
-Start-Process python "dl-obs.py" -Wait
+python "dl-obs.py" $temp_location -Wait
 Start-Process "obs.exe" -Wait -ArgumentList "/S"
 
 # TeamViewer
 Write-Host "`nInstalling TeamViewer"
 $tv_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-tviewer.py"
 Invoke-WebRequest -o "dl-tviewer.py" $tv_url
-Start-Process python "dl-tviewer.py" -Wait
+python "dl-tviewer.py" $temp_location -Wait
 Start-Process "teamviewer.exe" -Wait -ArgumentList "/S"
 
 # Git
 Write-Host "`nInstalling Git"
 $git_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-git.py"
 Invoke-WebRequest -o "dl-git.py" $git_url
-Start-Process python "dl-git.py" -Wait
+python "dl-git.py" $temp_location -Wait
 Start-Process "git.exe" -Wait -ArgumentList "/VERYSILENT /NORESTART"
 New-Item "C:\Users\$($env:UserName)\.gitconfig" -Force | Out-Null
 Set-Content "C:\Users\$($env:UserName)\.gitconfig" "[core] `n`teditor = nano"
@@ -153,7 +153,7 @@ Start-Sleep -Seconds 15
 Write-Host "`nInstalling VLC"
 $vlc_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-vlc.py"
 Invoke-WebRequest -o "dl-vlc.py" $vlc_url
-Start-Process python "dl-vlc.py" -Wait
+python "dl-vlc.py" $temp_location -Wait
 Start-Process "vlc-x64.exe" -Wait -ArgumentList "/S"
 
 # DirectX

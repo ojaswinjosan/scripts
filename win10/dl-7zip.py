@@ -1,6 +1,8 @@
+# Import statments
 from bs4 import BeautifulSoup
 import urllib.request
 import os
+import sys
 
 # Parse the webpage to be scraped
 url = 'https://sourceforge.net/projects/sevenzip/rss?path=/7-Zip'
@@ -17,7 +19,13 @@ for title in title_list:
 
 # Download URL
 download_url = 'https://www.7-zip.org/a/'+file
-file_path = '/Users/'+os.getenv('username')+'/Downloads/temp/7zip.exe'
+
+# File path
+if (len(sys.argv)<2):
+   file_path = sys.path[0]
+   print ("Downloading 7-Zip")
+else:
+    file_path = sys.argv[1]
 
 # Start the download
-urllib.request.urlretrieve(download_url, file_path)
+urllib.request.urlretrieve(download_url, file_path + "/7zip.exe")
