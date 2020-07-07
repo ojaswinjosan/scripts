@@ -212,15 +212,17 @@ Start-Sleep -Seconds 15
 ### Windows Terminal Config ###
 Write-Host "`nApplying Windows Terminal config"
 $terminal_config_url = "https://raw.githubusercontent.com/ojaswinjosan/windows-terminal-config/master/"
+$terminal_icon_url = "https://raw.githubusercontent.com/microsoft/terminal/master/res/terminal.ico"
 $terminal_config_path = "C:\Users\"+$env:UserName+"\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\"
 $terminal_settings_url = $terminal_config_url+"settings.json"
 $terminal_psprofile_url = $terminal_config_url+"Microsoft.PowerShell_profile.ps1"
-$temrinal_bg_url = $terminal_config_url+"terminal-bg.jpg"
+$terminal_bg_url = $terminal_config_url+"terminal-bg.jpg"
 $cascadia_font_url = "https://github.com/microsoft/cascadia-code/releases/download/v2005.15/CascadiaCode_2005.15.zip"
 # Download the files
 Invoke-WebRequest -o $terminal_config_path"settings.json" $terminal_settings_url
 Invoke-WebRequest -o $terminal_config_path"Microsoft.PowerShell_profile.ps1" $terminal_psprofile_url
-Invoke-WebRequest -o $terminal_config_path"terminal-bg.jpg" $temrinal_bg_url
+Invoke-WebRequest -o $terminal_config_path"terminal-bg.jpg" $terminal_bg_url
+Invoke-WebRequest -o $terminal_config_path"terminal.ico" $terminal_icon_url
 # Powershell Modules
 Write-Host "`nInstalling Powershell modules"
 Install-PackageProvider -Name NuGet -Force | Out-Null
@@ -244,6 +246,7 @@ Write-Host "`nApplying Registry Tweaks"
 New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal" -Value "Open Windows Terminal here" -Force | Out-Null
 New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal\command" -Value "C:\Users\$($env:UserName)\AppData\Local\Microsoft\WindowsApps\Microsoft.WindowsTerminal_8wekyb3d8bbwe\wt.exe -d ." -Force  | Out-Null
 New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" -Force | Out-Null
+New-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal" -Name "Icon" -Value "C:\Users\$($env:UserName)\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\terminal.ico" -Force | Out-Null
 Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\Bluetooth\Audio\AVRCP\CT" -Name "DisableAbsoluteVolume" -Type DWord -Value 1 | Out-Null
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1 | Out-Null
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1 | Out-Null
