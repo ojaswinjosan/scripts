@@ -193,6 +193,11 @@ code --install-extension dbaeumer.vscode-eslint | Out-Null
 code --install-extension ms-vscode-remote.remote-containers | Out-Null
 code --install-extension James-Yu.latex-workshop | Out-Null
 
+# Docker
+$docker_url = "https://download.docker.com/win/stable/Docker%20Desktop%20Installer.exe"
+Invoke-WebRequest -o "docker.exe" $docker_url
+Start-Process ".\Docker Desktop Installer.exe" -ArgumentList "install --quiet" -Wait | Out-Null
+
 # FFmpeg
 Write-Host "`nInstalling FFmpeg"
 $ffmpeg_path = ";C:\Program Files\ffmpeg\bin"
