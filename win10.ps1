@@ -275,12 +275,13 @@ Start-Sleep -Seconds 10
 
 # Download WSL 2 kernel update
 $wsl2_url = "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
-Invoke-WebRequest -o "C:\Users\$($env:UserName)\Downloads\wsl_update_x64.msi" $wsl2_url
+Invoke-WebRequest -o "wsl_update_x64.msi" $wsl2_url
+Start-Process "wsl_update_x64.msi" -Wait -ArgumentList "/qn /norestart"
 
 # Remove files after reboot
 New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" -Force | Out-Null
 New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.bat" -Force | Out-Null
-Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.bat" "powershell.exe -ExecutionPolicy Bypass -File C:\Users\$($env:UserName)\Downloads\removefiles.ps1"
+Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.bat" "wsl --set-default-version 2`npowershell.exe -ExecutionPolicy Bypass -File C:\Users\$($env:UserName)\Downloads\removefiles.ps1"
 Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Set-Location C:\Users\$($env:UserName)\Downloads\`nRemove-Item -Path temp -Recurse -Force"
 Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Remove-Item -Path removefiles.bat`nRemove-Item -Path win10.ps1`nRemove-Item -Path `$MyInvocation.MyCommand.Source"
 New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name ScriptV2 -Propertytype String -Value "C:\Users\$env:UserName\Downloads\removefiles.bat" | Out-Null
