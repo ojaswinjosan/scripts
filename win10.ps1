@@ -267,6 +267,8 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search" 
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "ShowCortanaButton" -Type DWord -Value 0 | Out-Null
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Start_TrackDocs" -Type DWord -Value 0 | Out-Null
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SubscribedContent-338388Enabled" -Type DWord -Value 0 | Out-Null
+Remove-Item "HKLM:\SOFTWARE\Classes\Directory\shell\git_gui" -Force -Recurse | Out-Null
+Remove-Item "HKLM:\SOFTWARE\Classes\Directory\Background\shell\git_gui" -Force -Recurse | Out-Null
 
 # Restart Explorer
 taskkill /F /IM explorer.exe | Out-Null
