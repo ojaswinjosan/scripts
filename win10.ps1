@@ -27,10 +27,11 @@ taskkill /F /IM iexplore.exe | Out-Null
 # Microsoft Store AHK
 Write-Host "`nPreparing Microsoft Store"
 Start-Process ms-windows-store:
-Start-Sleep -Seconds 30
+Start-Sleep -Seconds 15
 taskkill /F /IM winstore.App.exe | Out-Null
-$ms_store_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/ms-store-install.ahk"
-Invoke-WebRequest -o "ms-store-install.ahk" $ms_store_url
+New-Item -Path . -Name "ms-store-install.ahk" -ItemType "File" -Force  | Out-Null
+Add-Content "ms-store-install.ahk" "if WinExist(`"Microsoft Store`")`n{`nWinActivate`n}`nsleep, 10000`nsend ``n`nsleep, 2000`nWinMaximize"
+Add-Content "ms-store-install.ahk" "if WinExist(`"Administrator`")`n{`nWinActivate`n}`nreturn"
 
 ### Install applications ###
 # Python 
@@ -52,6 +53,7 @@ pip install requests | Out-Null
 
 # Windows Terminal
 Write-Host "`nInstalling Windows Terminal"
+New-Item -Path . -Name "winterminal.ahk" -ItemType "File" -Force  | Out-Null
 Add-Content "winterminal.ahk" "if WinExist(`"Microsoft Store`")`n{`nWinActivate`n}`nsleep, 10000`nsend ``t`nsleep, 2000`nsend ``t`nsend ``n`nsleep, 2000`nWinMaximize"
 Add-Content "winterminal.ahk" "if WinExist(`"Administrator`")`n{`nWinActivate`n}`nreturn"
 Start-Process ms-windows-store://pdp/?ProductId=9n0dx20hk701
