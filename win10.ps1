@@ -193,6 +193,11 @@ code --install-extension dbaeumer.vscode-eslint | Out-Null
 code --install-extension ms-vscode-remote.remote-containers | Out-Null
 code --install-extension James-Yu.latex-workshop | Out-Null
 
+# Download WSL 2 kernel update
+$wsl2_url = "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
+Invoke-WebRequest -o "wsl_update_x64.msi" $wsl2_url
+start wsl_update_x64.msi "/quiet /passive"
+
 # Docker
 $docker_url = "https://download.docker.com/win/stable/Docker%20Desktop%20Installer.exe"
 Invoke-WebRequest -o "docker.exe" $docker_url
@@ -274,11 +279,6 @@ Remove-Item "HKLM:\SOFTWARE\Classes\Directory\Background\shell\git_gui" -Force -
 taskkill /F /IM explorer.exe | Out-Null
 Start-Process explorer
 Start-Sleep -Seconds 10
-
-# Download WSL 2 kernel update
-$wsl2_url = "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
-Invoke-WebRequest -o "wsl_update_x64.msi" $wsl2_url
-Start-Process "wsl_update_x64.msi" -Wait -ArgumentList "/qn /norestart"
 
 # Remove files after reboot
 New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" -Force | Out-Null
