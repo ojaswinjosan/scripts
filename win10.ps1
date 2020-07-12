@@ -31,7 +31,7 @@ Start-Sleep -Seconds 15
 taskkill /F /IM winstore.App.exe | Out-Null
 New-Item -Path . -Name "ms-store-install.ahk" -ItemType "File" -Force  | Out-Null
 Add-Content "ms-store-install.ahk" "if WinExist(`"Microsoft Store`")`n{`nWinActivate`n}`nsleep, 10000`nsend ``n`nsleep, 2000`nWinMaximize"
-Add-Content "ms-store-install.ahk" "if WinExist(`"Administrator`")`n{`nWinActivate`n}`nreturn"
+Add-Content "ms-store-install.ahk" "if WinExist(`"Administrator`")`n{`nWinActivate`nWinMaximize`n}`nreturn"
 
 ### Install applications ###
 # Python 
@@ -294,10 +294,9 @@ Start-Sleep -Seconds 10
 # Remove files after reboot
 New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" -Force | Out-Null
 New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.bat" -Force | Out-Null
-Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.bat" "cd C:\Users\%username%\Downloads`nstart wsl_update_x64.msi `"/quiet /passive`"`nwsl --set-default-version 2`npowershell.exe -ExecutionPolicy Bypass -File C:\Users\$($env:UserName)\Downloads\removefiles.ps1"
+Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.bat" "cd C:\Users\%username%\Downloads`nstart wsl_update_x64.msi /quiet /passive`nwsl --set-default-version 2`npowershell.exe -ExecutionPolicy Bypass -File C:\Users\$($env:UserName)\Downloads\removefiles.ps1"
 Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Set-Location C:\Users\$($env:UserName)\Downloads\`nRemove-Item -Path temp -Recurse -Force"
 Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Remove-Item -Path removefiles.bat`nRemove-Item -Path win10.ps1`nRemove-Item -Path `$MyInvocation.MyCommand.Source"
-New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name ScriptV2 -Propertytype String -Value "C:\Users\$env:UserName\Downloads\removefiles.bat" | Out-Null
 
 # Bloatware
 Write-Host "`nRemoving Bloatware"
@@ -318,6 +317,7 @@ powercfg /X standby-timeout-ac 0
 powercfg /X standby-timeout-dc 30
 
 # Reboot
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name ScriptV2 -Propertytype String -Value "C:\Users\$env:UserName\Downloads\removefiles.bat" | Out-Null
 Read-Host -Prompt "`nAll done. Press Enter to reboot the system"
 Write-Host "`nThe system will reboot in 30 seconds"
 Start-Sleep -Seconds 30
