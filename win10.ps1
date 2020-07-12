@@ -199,13 +199,7 @@ code --install-extension James-Yu.latex-workshop | Out-Null
 
 # Download WSL 2 kernel update
 $wsl2_url = "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
-Invoke-WebRequest -o "wsl_update_x64.msi" $wsl2_url
-start wsl_update_x64.msi "/quiet /passive"
-
-# Docker
-$docker_url = "https://download.docker.com/win/stable/Docker%20Desktop%20Installer.exe"
-Invoke-WebRequest -o "docker.exe" $docker_url
-Start-Process "docker.exe" -ArgumentList "install --quiet" -Wait | Out-Null
+Invoke-WebRequest -o "../wsl_update_x64.msi" $wsl2_url
 
 # FFmpeg
 Write-Host "`nInstalling FFmpeg"
@@ -255,12 +249,19 @@ DISM /Online /Enable-Feature /FeatureName:Microsoft-Hyper-V /All /NoRestart | Ou
 DISM /Online /Enable-Feature /FeatureName:Microsoft-Windows-Subsystem-Linux /All /NoRestart | Out-Null
 DISM /Online /Enable-Feature /FeatureName:VirtualMachinePlatform /All /NoRestart | Out-Null
 
+# Docker
+Write-Host "`nInstalling Docker"
+$docker_url = "https://download.docker.com/win/stable/Docker%20Desktop%20Installer.exe"
+Invoke-WebRequest -o "docker.exe" $docker_url
+Start-Process "docker.exe" -ArgumentList "install --quiet" -Wait | Out-Null
+
 # Registry Tweaks
 Write-Host "`nApplying Registry Tweaks"
 New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal" -Value "Open Windows Terminal here" -Force | Out-Null
 New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal\command" -Value "C:\Users\$($env:UserName)\AppData\Local\Microsoft\WindowsApps\Microsoft.WindowsTerminal_8wekyb3d8bbwe\wt.exe -d ." -Force  | Out-Null
 New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" -Force | Out-Null
 New-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal" -Name "Icon" -Value "C:\Users\$($env:UserName)\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\terminal.ico" -Force | Out-Null
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name ScriptV2 -Propertytype String -Value "C:\Users\$env:UserName\Downloads\removefiles.bat" | Out-Null
 Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\Bluetooth\Audio\AVRCP\CT" -Name "DisableAbsoluteVolume" -Type DWord -Value 1 | Out-Null
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1 | Out-Null
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1 | Out-Null
@@ -287,10 +288,9 @@ Start-Sleep -Seconds 10
 # Remove files after reboot
 New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" -Force | Out-Null
 New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.bat" -Force | Out-Null
-Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.bat" "wsl --set-default-version 2`npowershell.exe -ExecutionPolicy Bypass -File C:\Users\$($env:UserName)\Downloads\removefiles.ps1"
+Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.bat" "cd C:\Users\%username%\Downloads`nstart wsl_update_x64.msi `"/quiet /passive`"`nwsl --set-default-version 2`npowershell.exe -ExecutionPolicy Bypass -File C:\Users\$($env:UserName)\Downloads\removefiles.ps1"
 Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Set-Location C:\Users\$($env:UserName)\Downloads\`nRemove-Item -Path temp -Recurse -Force"
 Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Remove-Item -Path removefiles.bat`nRemove-Item -Path win10.ps1`nRemove-Item -Path `$MyInvocation.MyCommand.Source"
-New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name ScriptV2 -Propertytype String -Value "C:\Users\$env:UserName\Downloads\removefiles.bat" | Out-Null
 
 # Bloatware
 Write-Host "`nRemoving Bloatware"
