@@ -52,9 +52,11 @@ pip install requests | Out-Null
 
 # Windows Terminal
 Write-Host "`nInstalling Windows Terminal"
+Add-Content "winterminal.ahk" "if WinExist(`"Microsoft Store`")`n{`nWinActivate`n}`nsleep, 10000`nsend ``t`nsleep, 2000`nsend ``t`nsend ``n`nsleep, 2000`nWinMaximize"
+Add-Content "winterminal.ahk" "if WinExist(`"Administrator`")`n{`nWinActivate`n}`nreturn"
 Start-Process ms-windows-store://pdp/?ProductId=9n0dx20hk701
 Start-Sleep -Seconds 5
-Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "ms-store-install.ahk" -Wait
+Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "winterminal.ahk" -Wait
 
 ### VCRedist ###
 Write-Host "`nInstalling all Visual C++ Redistributables"
