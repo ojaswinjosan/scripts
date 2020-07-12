@@ -255,13 +255,19 @@ $docker_url = "https://download.docker.com/win/stable/Docker%20Desktop%20Install
 Invoke-WebRequest -o "docker.exe" $docker_url
 Start-Process "docker.exe" -ArgumentList "install --quiet" -Wait | Out-Null
 
+# endall Alias
+$endall_func = "Get-Process Explorer| Stop-Process ; Get-Process | Where-Object {`$`_.MainWindowTitle -ne """" }| Stop-Process -Force"
+New-Item -Path "C:\Users\$($env:UserName)\Documents\" -Name "WindowsPowerShell" -ItemType "Directory" -Force | Out-Null
+Set-Location "C:\Users\$($env:UserName)\Documents\WindowsPowerShell"
+New-Item -Path . -Name "Microsoft.PowerShell_profile.ps1" -ItemType "File" -Force | Out-Null
+Add-Content "Microsoft.PowerShell_profile.ps1" "function Close-All {`n`t $($endall_func) `n} `n`nSet-Alias endall Close-All"
+
 # Registry Tweaks
 Write-Host "`nApplying Registry Tweaks"
 New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal" -Value "Open Windows Terminal here" -Force | Out-Null
 New-Item -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal\command" -Value "C:\Users\$($env:UserName)\AppData\Local\Microsoft\WindowsApps\Microsoft.WindowsTerminal_8wekyb3d8bbwe\wt.exe -d ." -Force  | Out-Null
 New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" -Force | Out-Null
 New-ItemProperty -Path "HKLM:\SOFTWARE\Classes\Directory\background\shell\WinTerminal" -Name "Icon" -Value "C:\Users\$($env:UserName)\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\terminal.ico" -Force | Out-Null
-New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name ScriptV2 -Propertytype String -Value "C:\Users\$env:UserName\Downloads\removefiles.bat" | Out-Null
 Set-ItemProperty -Path "HKLM:\SYSTEM\ControlSet001\Control\Bluetooth\Audio\AVRCP\CT" -Name "DisableAbsoluteVolume" -Type DWord -Value 1 | Out-Null
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Clipboard" -Name "EnableClipboardHistory" -Type DWord -Value 1 | Out-Null
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Type DWord -Value 1 | Out-Null
@@ -291,6 +297,7 @@ New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.bat" -Force | Out-Null
 Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.bat" "cd C:\Users\%username%\Downloads`nstart wsl_update_x64.msi `"/quiet /passive`"`nwsl --set-default-version 2`npowershell.exe -ExecutionPolicy Bypass -File C:\Users\$($env:UserName)\Downloads\removefiles.ps1"
 Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Set-Location C:\Users\$($env:UserName)\Downloads\`nRemove-Item -Path temp -Recurse -Force"
 Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Remove-Item -Path removefiles.bat`nRemove-Item -Path win10.ps1`nRemove-Item -Path `$MyInvocation.MyCommand.Source"
+New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name ScriptV2 -Propertytype String -Value "C:\Users\$env:UserName\Downloads\removefiles.bat" | Out-Null
 
 # Bloatware
 Write-Host "`nRemoving Bloatware"
@@ -303,13 +310,6 @@ Get-AppxPackage Microsoft.BingWeather | Remove-AppxPackage
 Get-AppxPackage Microsoft.ZuneMusic | Remove-AppxPackage
 Get-AppxPackage Microsoft.MicrosoftSolitaireCollection | Remove-AppxPackage
 
-# endall Alias
-$endall_func = "Get-Process Explorer| Stop-Process ; Get-Process | Where-Object {`$`_.MainWindowTitle -ne """" }| Stop-Process -Force"
-New-Item -Path "C:\Users\$($env:UserName)\Documents\" -Name "WindowsPowerShell" -ItemType "Directory" -Force | Out-Null
-Set-Location "C:\Users\$($env:UserName)\Documents\WindowsPowerShell"
-New-Item -Path . -Name "Microsoft.PowerShell_profile.ps1" -ItemType "File" -Force | Out-Null
-Add-Content "Microsoft.PowerShell_profile.ps1" "function Close-All {`n`t $($endall_func) `n} `n`nSet-Alias endall Close-All"
-
 # Display and Sleep timeouts
 Write-Host "`nTweaking Display and sleep timeouts"
 powercfg /X monitor-timeout-ac 0
@@ -317,8 +317,8 @@ powercfg /X monitor-timeout-dc 15
 powercfg /X standby-timeout-ac 0
 powercfg /X standby-timeout-dc 30
 
-# Restart
-Read-Host -Prompt "`nAll done. Press Enter to restart the system"
-Write-Host "`nThe system will restart in 30 seconds"
+# Reboot
+Read-Host -Prompt "`nAll done. Press Enter to reboot the system"
+Write-Host "`nThe system will reboot in 30 seconds"
 Start-Sleep -Seconds 30
 Restart-Computer
