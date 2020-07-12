@@ -201,7 +201,7 @@ start wsl_update_x64.msi "/quiet /passive"
 # Docker
 $docker_url = "https://download.docker.com/win/stable/Docker%20Desktop%20Installer.exe"
 Invoke-WebRequest -o "docker.exe" $docker_url
-Start-Process ".\Docker Desktop Installer.exe" -ArgumentList "install --quiet" -Wait | Out-Null
+Start-Process "docker.exe" -ArgumentList "install --quiet" -Wait | Out-Null
 
 # FFmpeg
 Write-Host "`nInstalling FFmpeg"
