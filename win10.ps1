@@ -317,7 +317,7 @@ powercfg /X standby-timeout-ac 0
 powercfg /X standby-timeout-dc 30
 
 # Reboot
-New-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name ScriptV2 -Propertytype String -Value "C:\Users\$env:UserName\Downloads\removefiles.bat" | Out-Null
+New-ItemProperty -Path "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name ScriptV2 -Propertytype String -Value "C:\Users\$env:UserName\Downloads\removefiles.bat" | Out-Null
 Read-Host -Prompt "`nAll done. Press Enter to reboot the system"
 Write-Host "`nThe system will reboot in 30 seconds"
 Start-Sleep -Seconds 30
