@@ -144,15 +144,6 @@ Start-Process "git.exe" -Wait -ArgumentList "/VERYSILENT /NORESTART"
 New-Item "C:\Users\$($env:UserName)\.gitconfig" -Force | Out-Null
 Set-Content "C:\Users\$($env:UserName)\.gitconfig" "[core] `n`teditor = nano"
 
-# Spotify
-Write-Host "`nInstalling Spotify"
-taskkill /F /IM winstore.App.exe | Out-Null
-Start-Sleep -Seconds 5
-Start-Process ms-windows-store://pdp/?ProductId=9ncbcszsjrsb
-Start-Sleep -Seconds 15
-Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "ms-store-install.ahk" -Wait
-Start-Sleep -Seconds 15
-
 # VLC
 Write-Host "`nInstalling VLC"
 $vlc_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-vlc.py"
