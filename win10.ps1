@@ -192,15 +192,6 @@ code --install-extension James-Yu.latex-workshop | Out-Null
 $wsl2_url = "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
 Invoke-WebRequest -o "../wsl_update_x64.msi" $wsl2_url
 
-# FFmpeg
-Write-Host "`nInstalling FFmpeg"
-$ffmpeg_path = ";C:\Program Files\ffmpeg\bin"
-$ffmpeg_url = "https://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-latest-win64-static.zip"
-Invoke-WebRequest -o "ffmpeg.zip" $ffmpeg_url
-Expand-Archive -Path "ffmpeg.zip" -Force
-Copy-Item -Path "ffmpeg\ffmpeg*\" -Destination "C:\Program Files\ffmpeg\" -Force -Recurse
-[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path",[EnvironmentVariableTarget]::Machine) + $ffmpeg_path, [EnvironmentVariableTarget]::Machine)
-
 # Ubuntu WSL
 Write-Host "`nInstalling Ubuntu WSL"
 Start-Process ms-windows-store://pdp/?ProductId=9nblggh4msv6
