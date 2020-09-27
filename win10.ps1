@@ -254,6 +254,9 @@ Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager" -Name "SubscribedContent-338388Enabled" -Type DWord -Value 0 | Out-Null
 Remove-Item "HKLM:\SOFTWARE\Classes\Directory\shell\git_gui" -Force -Recurse | Out-Null
 Remove-Item "HKLM:\SOFTWARE\Classes\Directory\Background\shell\git_gui" -Force -Recurse | Out-Null
+Remove-Item "HKLM:\SOFTWARE\Classes\Directory\shell\git_shell" -Force -Recurse | Out-Null
+Remove-Item "HKLM:\SOFTWARE\Classes\Directory\shell\AddToPlaylistVLC" -Force -Recurse | Out-Null
+Remove-Item "HKLM:\SOFTWARE\Classes\Directory\shell\PlayWithVLC" -Force -Recurse | Out-Null
 
 # Restart Explorer
 taskkill /F /IM explorer.exe | Out-Null
@@ -263,7 +266,7 @@ Start-Sleep -Seconds 10
 # Remove files after reboot
 New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" -Force | Out-Null
 New-Item "C:\Users\$($env:UserName)\Downloads\removefiles.bat" -Force | Out-Null
-Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.bat" "cd C:\Users\%username%\Downloads`nstart wsl_update_x64.msi /quiet /passive`nwsl --set-default-version 2`npowershell.exe -ExecutionPolicy Bypass -File C:\Users\$($env:UserName)\Downloads\removefiles.ps1"
+Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.bat" "cd C:\Users\%username%\Downloads`npowershell.exe -ExecutionPolicy Bypass -File C:\Users\$($env:UserName)\Downloads\removefiles.ps1"
 Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Set-Location C:\Users\$($env:UserName)\Downloads\`nRemove-Item -Path temp -Recurse -Force"
 Add-Content "C:\Users\$($env:UserName)\Downloads\removefiles.ps1" "Remove-Item -Path removefiles.bat`nRemove-Item -Path win10.ps1`nRemove-Item -Path `$MyInvocation.MyCommand.Source"
 
