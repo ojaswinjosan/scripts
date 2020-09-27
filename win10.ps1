@@ -173,7 +173,6 @@ code --install-extension jolaleye.horizon-theme-vscode | Out-Null
 code --install-extension ms-vscode.powershell | Out-Null
 code --install-extension ms-python.python | Out-Null
 code --install-extension ritwickdey.liveserver | Out-Null
-code --install-extension ms-azuretools.vscode-docker | Out-Null
 code --install-extension redhat.vscode-yaml | Out-Null
 code --install-extension coenraads.bracket-pair-colorizer-2 | Out-Null
 code --install-extension pkief.material-icon-theme | Out-Null
@@ -217,12 +216,6 @@ Copy-Item "./font/ttf/CascadiaCodePL.ttf" "..\"
 # Enable system features
 Write-Host "`nEnabling Windows features"
 DISM /Online /Enable-Feature /FeatureName:NetFX3 /All | Out-Null
-
-# Docker
-Write-Host "`nInstalling Docker"
-$docker_url = "https://download.docker.com/win/stable/Docker%20Desktop%20Installer.exe"
-Invoke-WebRequest -o "docker.exe" $docker_url
-Start-Process "docker.exe" -ArgumentList "install --quiet" -Wait | Out-Null
 
 # endall Alias
 $endall_func = "Get-Process Explorer| Stop-Process ; Get-Process | Where-Object {`$`_.MainWindowTitle -ne """" }| Stop-Process -Force"
