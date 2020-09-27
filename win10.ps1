@@ -144,6 +144,7 @@ Start-Process "git.exe" -Wait -ArgumentList "/VERYSILENT /NORESTART"
 New-Item -Path . -Name ".gitconfig" -ItemType "File" -Force  | Out-Null
 $email = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("b2phc3dpbi5qb3NhbkBnbWFpbC5jb20="))
 Add-Content "C:\Users\$($env:UserName)\.gitconfig" "[core] `n`teditor = nano`n[user]`n`temail = $email`n`tname = ojaswinjosan"
+
 # VLC
 Write-Host "`nInstalling VLC"
 $vlc_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-vlc.py"
@@ -188,17 +189,6 @@ code --install-extension dbaeumer.vscode-eslint | Out-Null
 code --install-extension ms-vscode-remote.remote-containers | Out-Null
 code --install-extension James-Yu.latex-workshop | Out-Null
 
-# Download WSL 2 kernel update
-$wsl2_url = "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi"
-Invoke-WebRequest -o "../wsl_update_x64.msi" $wsl2_url
-
-# Ubuntu WSL
-Write-Host "`nInstalling Ubuntu WSL"
-Start-Process ms-windows-store://pdp/?ProductId=9nblggh4msv6
-Start-Sleep -Seconds 15
-Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "ms-store-install.ahk" -Wait
-Start-Sleep -Seconds 15
-
 ### Windows Terminal Config ###
 Write-Host "`nApplying Windows Terminal config"
 $terminal_config_url = "https://raw.githubusercontent.com/ojaswinjosan/windows-terminal-config/master/"
@@ -227,9 +217,6 @@ Copy-Item "./font/ttf/CascadiaCodePL.ttf" "..\"
 # Enable system features
 Write-Host "`nEnabling Windows features"
 DISM /Online /Enable-Feature /FeatureName:NetFX3 /All | Out-Null
-DISM /Online /Enable-Feature /FeatureName:Microsoft-Hyper-V /All /NoRestart | Out-Null
-DISM /Online /Enable-Feature /FeatureName:Microsoft-Windows-Subsystem-Linux /All /NoRestart | Out-Null
-DISM /Online /Enable-Feature /FeatureName:VirtualMachinePlatform /All /NoRestart | Out-Null
 
 # Docker
 Write-Host "`nInstalling Docker"
