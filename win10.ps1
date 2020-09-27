@@ -141,9 +141,9 @@ $git_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/
 Invoke-WebRequest -o "dl-git.py" $git_url
 python "dl-git.py" $temp_location -Wait
 Start-Process "git.exe" -Wait -ArgumentList "/VERYSILENT /NORESTART"
-New-Item "C:\Users\$($env:UserName)\.gitconfig" -Force | Out-Null
-Set-Content "C:\Users\$($env:UserName)\.gitconfig" "[core] `n`teditor = nano"
-
+New-Item -Path . -Name ".gitconfig" -ItemType "File" -Force  | Out-Null
+$email = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String("b2phc3dpbi5qb3NhbkBnbWFpbC5jb20="))
+Add-Content "C:\Users\$($env:UserName)\.gitconfig" "[core] `n`teditor = nano`n[user]`n`temail = $email`n`tname = ojaswinjosan"
 # VLC
 Write-Host "`nInstalling VLC"
 $vlc_url = "https://raw.githubusercontent.com/ojaswinjosan/scripts/master/win10/dl-vlc.py"
