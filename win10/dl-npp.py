@@ -13,12 +13,17 @@ soup = BeautifulSoup(response.text, "html.parser")
 # Store all anchor tags in a list
 anchor_list = [soup.findAll('a', href=True)]
 
-# Get the latest version number
+# Pick the tag that contains the version number
 for anchor in anchor_list:
-        version = str(anchor[2])[21:26]
+        version_string = str(anchor[2])
+
+# Get the version number
+version_begin = version_string.find('Version ')
+version_end = version_string.find('</strong>')
+version_number = version_string[version_begin + 8: version_end]
 
 # Download URL
-download_url = 'https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v'+version+'/npp.'+version+'.Installer.x64.exe'
+download_url = 'https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v'+version_number+'/npp.'+version_number+'.Installer.x64.exe'
 
 # File path
 if (len(sys.argv)<2):
