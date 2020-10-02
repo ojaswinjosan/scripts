@@ -74,7 +74,7 @@ $vc2013x86 = "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-9
 $vc2013x64 = "https://download.microsoft.com/download/2/E/6/2E61CFA4-993B-4DD4-91DA-3737CD5CD6E3/vcredist_x64.exe"
 $vc2015to2019x86 = "https://download.visualstudio.microsoft.com/download/pr/d60aa805-26e9-47df-b4e3-cd6fcc392333/A06AAC66734A618AB33C1522920654DDFC44FC13CAFAA0F0AB85B199C3D51DC0/VC_redist.x86.exe"
 $vc2015to2019x64 = "https://download.visualstudio.microsoft.com/download/pr/d60aa805-26e9-47df-b4e3-cd6fcc392333/7D7105C52FCD6766BEEE1AE162AA81E278686122C1E44890712326634D0B055E/VC_redist.x64.exe"
-# Download all VCRedists
+# Download
 Invoke-WebRequest -o "vcredist_2005_x86.exe" $vc2005x86
 Invoke-WebRequest -o "vcredist_2005_x64.exe" $vc2005x64
 Invoke-WebRequest -o "vcredist_2008_x86.exe" $vc2008x86
@@ -87,19 +87,19 @@ Invoke-WebRequest -o "vcredist_2013_x86.exe" $vc2013x86
 Invoke-WebRequest -o "vcredist_2013_x64.exe" $vc2013x64
 Invoke-WebRequest -o "vcredist_2015_2019_x86.exe" $vc2015to2019x86
 Invoke-WebRequest -o "vcredist_2015_2019_x64.exe" $vc2015to2019x64
-# Install all VCRedists
-Start-Process "vcredist_2005_x86.exe" -Wait -ArgumentList "/Q"
-Start-Process "vcredist_2005_x64.exe" -Wait -ArgumentList "/Q"
-Start-Process "vcredist_2008_x86.exe" -Wait -ArgumentList "/Q"
-Start-Process "vcredist_2008_x64.exe" -Wait -ArgumentList "/Q"
-Start-Process "vcredist_2010_x86.exe" -Wait -ArgumentList "/norestart /Q"
-Start-Process "vcredist_2010_x64.exe" -Wait -ArgumentList "/norestart /Q"
-Start-Process "vcredist_2012_x86.exe" -Wait -ArgumentList "/norestart /Q"
-Start-Process "vcredist_2012_x64.exe" -Wait -ArgumentList "/norestart /Q"
-Start-Process "vcredist_2013_x86.exe" -Wait -ArgumentList "/norestart /Q"
-Start-Process "vcredist_2013_x64.exe" -Wait -ArgumentList "/norestart /Q"
-Start-Process "vcredist_2015_2019_x86.exe" -Wait -ArgumentList "/norestart /Q"
-Start-Process "vcredist_2015_2019_x64.exe" -Wait -ArgumentList "/norestart /Q"
+# Install
+cmd /c "vcredist_2005_x86.exe /Q"
+cmd /c "vcredist_2005_x64.exe /Q"
+cmd /c "vcredist_2008_x86.exe /Q"
+cmd /c "vcredist_2008_x64.exe /Q"
+cmd /c "vcredist_2010_x86.exe /Q /norestart"
+cmd /c "vcredist_2010_x64.exe /Q /norestart"
+cmd /c "vcredist_2012_x86.exe /Q /norestart"
+cmd /c "vcredist_2012_x64.exe /Q /norestart"
+cmd /c "vcredist_2013_x86.exe /Q /norestart"
+cmd /c "vcredist_2013_x64.exe /Q /norestart"
+cmd /c "vcredist_2015_2019_x86.exe /Q /norestart"
+cmd /c "vcredist_2015_2019_x64.exe /Q /norestart"
 
 # 7-Zip
 Write-Host "`nInstalling 7-Zip"
