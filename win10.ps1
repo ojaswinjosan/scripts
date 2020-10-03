@@ -24,15 +24,6 @@ Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "ie.ahk" -Wait
 Start-Sleep -Seconds 15
 taskkill /F /IM iexplore.exe | Out-Null
 
-# Microsoft Store AHK
-Write-Host "`nPreparing Microsoft Store"
-Start-Process ms-windows-store:
-Start-Sleep -Seconds 15
-taskkill /F /IM winstore.App.exe | Out-Null
-New-Item -Path . -Name "ms-store-install.ahk" -ItemType "File" -Force  | Out-Null
-Add-Content "ms-store-install.ahk" "if WinExist(`"Microsoft Store`")`n{`nWinActivate`n}`nsleep, 10000`nsend ``n`nsleep, 2000`nWinMaximize"
-Add-Content "ms-store-install.ahk" "if WinExist(`"Administrator`")`n{`nWinActivate`nWinMaximize`n}`nreturn"
-
 ### Install applications ###
 # Python 
 Write-Host "`nInstalling Python"
@@ -50,15 +41,6 @@ python -m pip install --upgrade pip | Out-Null
 pip install bs4 | Out-Null
 pip install lxml | Out-Null
 pip install requests | Out-Null
-
-# Windows Terminal
-Write-Host "`nInstalling Windows Terminal"
-New-Item -Path . -Name "winterminal.ahk" -ItemType "File" -Force  | Out-Null
-Add-Content "winterminal.ahk" "if WinExist(`"Microsoft Store`")`n{`nWinActivate`n}`nsleep, 10000`nsend ``t`nsleep, 2000`nsend ``t`nsend ``n`nsleep, 2000`nWinMaximize"
-Add-Content "winterminal.ahk" "if WinExist(`"Administrator`")`n{`nWinActivate`n}`nreturn"
-Start-Process ms-windows-store://pdp/?ProductId=9n0dx20hk701
-Start-Sleep -Seconds 5
-Start-Process "C:\Program Files\AutoHotkey\AutoHotkey.exe" "winterminal.ahk" -Wait
 
 ### VCRedist ###
 Write-Host "`nInstalling all Visual C++ Redistributables"
@@ -185,6 +167,7 @@ $terminal_psprofile_url = $terminal_config_url+"Microsoft.PowerShell_profile.ps1
 $terminal_bg_url = $terminal_config_url+"terminal-bg.jpg"
 $cascadia_font_url = "https://github.com/microsoft/cascadia-code/releases/download/v2005.15/CascadiaCode_2005.15.zip"
 # Download the files
+New-Item -ItemType Directory -Path $terminal_config_path -Force | Out-Null
 Invoke-WebRequest -o $terminal_config_path"settings.json" $terminal_settings_url
 Invoke-WebRequest -o $terminal_config_path"Microsoft.PowerShell_profile.ps1" $terminal_psprofile_url
 Invoke-WebRequest -o $terminal_config_path"terminal-bg.jpg" $terminal_bg_url
