@@ -160,7 +160,7 @@ code --install-extension pkief.material-icon-theme | Out-Null
 ### Windows Terminal Config ###
 Write-Host "`nApplying Windows Terminal config"
 $terminal_config_url = "https://raw.githubusercontent.com/ojaswinjosan/windows-terminal-config/master/"
-$terminal_icon_url = "https://raw.githubusercontent.com/microsoft/terminal/master/res/terminal.ico"
+$terminal_icon_url = "https://raw.githubusercontent.com/microsoft/terminal/main/res/terminal.ico"
 $terminal_config_path = "C:\Users\"+$env:UserName+"\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\"
 $terminal_settings_url = $terminal_config_url+"settings.json"
 $terminal_psprofile_url = $terminal_config_url+"Microsoft.PowerShell_profile.ps1"
